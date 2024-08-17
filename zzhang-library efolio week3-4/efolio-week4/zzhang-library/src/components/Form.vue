@@ -32,15 +32,25 @@
           </div>
           <div class="row mb-3">
             <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-              <div class="form-check">
+              <label>Australian Resident?</label>
+              <div>
                 <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="isAustralian"
+                  type="radio"
+                  id="isAustralianYes"
+                  value="yes"
                   v-model="formData.isAustralian"
                 />
-                <label class="form-check-label" for="isAustralian">Australian Resident?</label>
+                <label for="isAustralianYes">Yes</label>
+
+                <input
+                  type="radio"
+                  id="isAustralianNo"
+                  value="no"
+                  v-model="formData.isAustralian"
+                />
+                <label for="isAustralianNo">No</label>
               </div>
+              <div v-if="errors.isAustralian" class="text-danger">{{ errors.isAustralian }}</div>
             </div>
             <div class="col-12 col-sm-6 col-md-6 col-lg-4">
               <label for="gender" class="form-label">Gender</label>
@@ -121,7 +131,7 @@ import Column from 'primevue/column'
 const formData = ref({
   username: '',
   password: '',
-  isAustralian: false,
+  isAustralian: null,
   reason: '',
   gender: ''
 })
@@ -131,12 +141,13 @@ const submittedCards = ref([])
 const submitForm = () => {
   validateName(true)
   validatePassword(true)
+  validateResident()
   validateGender(true)
   validateReason(true)
   if (
     !errors.value.username &&
     !errors.value.password &&
-    !errors.value.resident &&
+    !errors.value.isAustralian &&
     !errors.value.gender &&
     !errors.value.reason
   ) {
@@ -151,7 +162,7 @@ const clearForm = () => {
   formData.value = {
     username: '',
     password: '',
-    isAustralian: false,
+    isAustralian: null,
     reason: '',
     gender: ''
   }
@@ -160,7 +171,7 @@ const clearForm = () => {
 const errors = ref({
   username: null,
   password: null,
-  resident: null,
+  isAustralian: null,
   gender: null,
   reason: null
 })
@@ -193,6 +204,14 @@ const validatePassword = (blur) => {
     if (blur) errors.value.password = 'Password must contain at least one special character.'
   } else {
     errors.value.password = null
+  }
+}
+
+const validateResident = () => {
+  if (formData.value.isAustralian === null) {
+    errors.value.isAustralian = 'Please select whether you are an Australian resident.'
+  } else {
+    errors.value.isAustralian = null
   }
 }
 
