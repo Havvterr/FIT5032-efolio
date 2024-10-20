@@ -19,9 +19,11 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+      working-directory: ./efolio-week11-12/NoMash-Library
+        run: npm ci
 
       - name: Build project
+      working-directory: ./efolio-week11-12/NoMash-Library
         run: npm run build
 
       - name: Deploy to GitHub Pages
