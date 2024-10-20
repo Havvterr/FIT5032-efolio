@@ -41,7 +41,7 @@ export default {
     temperature() {
       return this.weatherData ? Math.floor(this.weatherData.main.temp - 273) : null
     },
-    //Get the current weather icon using the API link
+    //Get the current weather icon using the API
     iconUrl() {
       return this.weatherData
         ? `http://api.openweathermap.org/img/w/${this.weatherData.weather[0].icon}.png`
