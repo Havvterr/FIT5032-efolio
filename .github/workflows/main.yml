@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
       working-directory: ./efolio-week11-12/NoMash-Library
-        run: npm ci
+        run: npm install
 
       - name: Build project
       working-directory: ./efolio-week11-12/NoMash-Library
